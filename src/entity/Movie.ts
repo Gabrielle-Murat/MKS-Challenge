@@ -5,15 +5,21 @@ export class Movie {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ length: 100 })
   title: string;
 
-  @Column()
+  @Column({ length: 60 })
   genre: string;
 
-  @Column()
+  @Column({ length: 100 })
   director: string;
 
-  @Column()
+  @Column('int')
   releaseYear: number;
+
+  @Column('text')
+  imageURL: string;
+
+  @Column('text')
+  plot: string;
 }
