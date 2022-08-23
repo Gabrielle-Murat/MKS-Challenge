@@ -11,8 +11,11 @@ export class User {
   @Column({ length: 100 })
   lastName: string;
 
-  @Column({ length: 60 })
+  @Column({ length: 60, unique: true })
   email: string;
+
+  @Column({ length: 8 })
+  password: string;
 
   @Column('int')
   age: number;

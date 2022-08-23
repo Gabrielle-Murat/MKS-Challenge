@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { User } from './entity/User';
 import { Movie } from './entity/Movie';
+// import { MovieMigration } from './migration/1661222422433-movies-migration';
 import 'dotenv/config';
 
 export const AppDataSource = new DataSource({
@@ -14,6 +15,6 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: false,
   entities: [User, Movie],
-  migrations: [],
+  // migrations: [MovieMigration],
   //   subscribers: [],
 });

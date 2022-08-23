@@ -8,8 +8,8 @@ export class Movie {
   @Column({ length: 100 })
   title: string;
 
-  @Column({ length: 60 })
-  genre: string;
+  @Column('simple-array')
+  genre: string[];
 
   @Column({ length: 100 })
   director: string;
@@ -17,9 +17,15 @@ export class Movie {
   @Column('int')
   releaseYear: number;
 
-  @Column('text')
-  imageURL: string;
+  @Column({ length: 20 })
+  duration: string;
+
+  @Column('smallint')
+  rating: number;
 
   @Column('text')
   plot: string;
+
+  // @Column('text')
+  // imageURL: string;
 }
