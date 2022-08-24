@@ -17,11 +17,11 @@ export default class UserService {
         .insert()
         .into(User)
         .values({
-          firstName: firstName,
-          lastName: lastName,
-          email: email,
-          password: password,
-          age: age,
+          firstName,
+          lastName,
+          email,
+          password,
+          age,
         })
         .execute();
 
