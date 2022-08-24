@@ -1,3 +1,4 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
 import 'dotenv/config';
 import * as jwt from 'jsonwebtoken';
 
@@ -15,7 +16,10 @@ export default class JwtService {
 
   static verify(token: string): number {
     const decoded = <jwt.JwtPayload>jwt.verify(token, secret);
-    if (!decoded) return 401;
+
+    if (!decoded) {
+      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+    }
     const { id } = decoded;
     return id;
   }
