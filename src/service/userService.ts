@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AppDataSource } from '../database/data-source';
 import { User } from '../database/entity/User';
 // import { ILogin } from '../interfaces/LoginInterface';
@@ -26,13 +26,18 @@ export default class UserService {
         .execute();
 
       const newUserId = newUser.identifiers[0].id;
-      // console.log(newUserId);
 
       const token = JwtService.sign({ id: newUserId, email });
-      // return 'User created';
       return token;
     }
-    return 'User already exists';
+
+    throw new HttpException(
+      {
+        status: HttpStatus.BAD_REQUEST,
+        error: 'User already exists',
+      },
+      HttpStatus.BAD_REQUEST,
+    );
   }
 
   async getUser(userEmail: string): Promise<IUser> {
