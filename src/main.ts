@@ -15,6 +15,7 @@ bootstrap();
 AppDataSource.initialize()
   .then(async () => {
     console.log('Data Source has been initialized!');
+    await AppDataSource.dropDatabase();
 
     await AppDataSource.destroy();
     await AppDataSource.initialize();
