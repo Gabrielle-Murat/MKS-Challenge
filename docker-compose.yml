@@ -1,0 +1,37 @@
+version: '3.9'
+services:
+  main:
+    container_name: main
+    build:
+      context: .
+    restart: on-failure
+    ports:
+      - 3005:3003
+    env_file:
+      - .env
+    networks:
+      - webnet
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:12
+    container_name: postgres
+    networks:
+      - webnet
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_CONNECTION: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: moviescatalog
+      PG_DATA: /var/lib/postgresql/data
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: 'always'
+networks:
+  webnet:
+volumes:
+  pgdata:
