@@ -10,6 +10,10 @@ export default class MovieService {
       .select('movie')
       .from(Movie, 'movie')
       .getMany();
+
+    if (!movies) {
+      throw new HttpException('Movies not found', HttpStatus.NOT_FOUND);
+    }
     return movies;
   }
 
@@ -76,6 +80,12 @@ export default class MovieService {
   }
 
   async updateMovie(movieId: number, movieInfo: any): Promise<any> {
+    const doesMovieExist = await this.getMovieById(movieId);
+
+    if (!doesMovieExist) {
+      throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+    }
+
     const { title, genre, director, releaseYear, duration, rating, plot } =
       movieInfo;
 
@@ -97,6 +107,12 @@ export default class MovieService {
   }
 
   async deleteMovie(movieId: number): Promise<void> {
+    const doesMovieExist = await this.getMovieById(movieId);
+
+    if (!doesMovieExist) {
+      throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+    }
+
     await AppDataSource.createQueryBuilder()
       .delete()
       .from(Movie)
