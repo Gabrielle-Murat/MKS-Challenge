@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+// import { Genre } from './Genre';
 
-@Entity()
+@Entity('movies')
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number;
@@ -25,6 +26,9 @@ export class Movie {
 
   @Column('text')
   plot: string;
+
+  // @ManyToOne(() => Genre, (genre) => genre.movies)
+  // movie: Movie;
 
   // @Column('text')
   // imageURL: string;
