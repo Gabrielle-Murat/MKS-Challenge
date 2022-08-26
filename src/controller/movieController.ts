@@ -3,29 +3,19 @@ import {
   Controller,
   Delete,
   Get,
-  Headers,
-  HttpException,
-  HttpStatus,
   Param,
   Post,
   Put,
 } from '@nestjs/common';
 import MovieService from '../service/movieService';
 import IMovie from '../interfaces/MovieInterface';
-import JwtService from '../middlewares/auth/JwtService';
 
 @Controller()
 export default class MovieController {
   constructor(private readonly movieService: MovieService) {}
 
   @Get('/movies')
-  async findAll(@Headers() data: any): Promise<IMovie[]> {
-    const token = data.authorization;
-    if (!token) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-    }
-
-    JwtService.verify(token);
+  async findAll(): Promise<IMovie[]> {
     return this.movieService.getAll();
   }
 
